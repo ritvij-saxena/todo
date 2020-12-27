@@ -41,6 +41,9 @@ public class UserResource {
 
     @DeleteMapping("/users/{uid}")
     public void deleteUser(@PathVariable int uid){
-        userDaoService.deleteUser(uid);
+        User user = userDaoService.deleteUserById(uid);
+        if(user == null){
+            throw new UserNotFoundException("id - "+uid);
+        }
     }
 }
