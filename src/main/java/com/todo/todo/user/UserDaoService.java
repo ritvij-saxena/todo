@@ -30,12 +30,16 @@ public class UserDaoService {
         return user;
     }
 
-    public User findOne(int id){
+    public User findOne(int uid){
         for(User user : users){
-            if(user.getId()==id){
+            if(user.getId()==uid){
                 return user;
             }
         }
         return null;
+    }
+
+    public void deleteUser(int uid){
+        users.removeIf(user -> user.getId() == uid);
     }
 }

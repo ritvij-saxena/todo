@@ -1,10 +1,12 @@
 package com.todo.todo.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,6 +22,25 @@ public class UserResource {
 
     @GetMapping("/users/{uid}")
     public User retrieveUser(@PathVariable int uid){
-        return userDaoService.findOne(uid);
+        User user =  userDaoService.findOne(uid);
+        if(user == null){
+            throw new UserNotFoundException("uid - " + uid);
+        }
+        return user;
+    }
+
+    @PostMapping("/users")
+    public ResponseEntity<Object> createUser(@RequestBody User user){
+        User savedUser = userDaoService.save(user);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+       return ResponseEntity.created(location).build();
+    }
+
+    @DeleteMapping("/users/{uid}")
+    public void deleteUser(@PathVariable int uid){
+        userDaoService.deleteUser(uid);
     }
 }

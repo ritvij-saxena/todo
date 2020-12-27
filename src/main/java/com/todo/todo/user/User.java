@@ -5,13 +5,13 @@ import java.util.Date;
 public class User {
     private Integer id;
     private String name;
-    private Date birthData;
+    private Date birthDate;
 
-    public User(Integer id, String name, Date birthData) {
+    public User(Integer id, String name, Date birthDate) {
         super();
         this.id = id;
         this.name = name;
-        this.birthData = birthData;
+        this.birthDate = birthDate;
     }
 
     @Override
@@ -19,7 +19,7 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", birthData=" + birthData +
+                ", birthDate=" + birthDate +
                 '}';
     }
 
@@ -39,11 +39,11 @@ public class User {
         this.name = name;
     }
 
-    public Date getBirthData() {
-        return birthData;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
-    public void setBirthData(Date birthData) {
-        this.birthData = birthData;
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }
