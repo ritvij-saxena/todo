@@ -5,10 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class UserResource {
@@ -22,14 +27,20 @@ public class UserResource {
     }
 
     @GetMapping("/users/{uid}")
-    public User retrieveUser(@PathVariable int uid){
+    public EntityModel<User> retrieveUser(@PathVariable int uid){
         User user =  userDaoService.findOne(uid);
         if(user == null){
             throw new UserNotFoundException("uid - " + uid);
         }
-        return user;
+        EntityModel<User> resource = EntityModel.of(user);
+        WebMvcLinkBuilder linkTo =
+                linkTo(methodOn(this.getClass()).retrieveAllUsers());
+
+        resource.add(linkTo.withRel("all-users"));
+        return resource;
     }
 
+    //HATEOS - Hyper media as the engine of application state
     @PostMapping("/users")
     public ResponseEntity<Object> createUser(@Valid @RequestBody User user){
         User savedUser = userDaoService.save(user);
