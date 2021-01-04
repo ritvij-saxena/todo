@@ -15,3 +15,5 @@ Retrieve detail of a post -> GET /users/{uid}/posts/{pid} </br>
         - LocaleResolver
             - Default Locale - Locale.US
         - ResouceBundleMessageSource
+        
+#### Content Negotiation
