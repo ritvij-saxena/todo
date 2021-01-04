@@ -19,3 +19,5 @@ Retrieve detail of a post -> GET /users/{uid}/posts/{pid} </br>
 #### Content Negotiation
 XML Enabled.
 Browsers give preference to XML over JSON (They send Accept header with application/xml). 
+
+# Swagger - http://localhost:8080/swagger-ui/ 
