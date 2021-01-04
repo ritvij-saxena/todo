@@ -17,3 +17,5 @@ Retrieve detail of a post -> GET /users/{uid}/posts/{pid} </br>
         - ResouceBundleMessageSource
         
 #### Content Negotiation
+XML Enabled.
+Browsers give preference to XML over JSON (They send Accept header with application/xml). 
